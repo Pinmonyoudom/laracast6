@@ -11,13 +11,15 @@
 |
 */
 
-// Route::get('/', function () {
+// Route::get('/test', function () {
 //     // $name = request('name');
     
-//     return view('welcome');
+//     // // return view('welcome');
 //     // return view('test',[
 //     //     'name'=>$name
 //     // ]);
+//     $names='<h1>KKA</h1>';
+//     return view('test',compact('names'));
 //     // return ["asd"=>'king'];
 // });
 Route::get('/',function(){
@@ -36,8 +38,15 @@ Route::get('/about',function(){
         'articles'=> App\Article::take(3)->latest()->get() //this is inline
     ]);
 });
-Route::get('/posts/{post}', 'PostsController@show');
-Route::get('/articles/{id}','ArticleController@show');
+// Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/articles','ArticleController@index')->name('articles.index');
+Route::get('/articles/create','ArticleController@create');
+Route::post('articles/store','ArticleController@store');
+Route::get('articles/{article}/edit','ArticleController@edit');
+Route::put('articles/{article}','ArticleController@update');
+Route::get('/articles/{article}','ArticleController@show')->name('articles.show');
+// Route::get('/articles/{id}','ArticleController@destroy');
+
 
 // Route::get('/posts/{post}',function($post){
        

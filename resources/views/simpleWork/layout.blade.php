@@ -20,6 +20,7 @@ Released   : 20140225
 <link href="/css/default.css" rel="stylesheet"  />
 {{-- <link href="{{asset('css/default.css')}}"> --}}
 <link href="/css/fonts.css" rel="stylesheet"  />
+@yield('head')
 
 </head>
 <body>
@@ -36,7 +37,7 @@ Released   : 20140225
 					{{-- <li class=" {{Request::is('about') ? 'current_page_item' : ''}} "><a href="/about" accesskey="3" title="">About Us</a></li> --}}
 					{{-- <li class=" {{Request::is('about*') ? 'current_page_item' : ''}} "><a href="/about" accesskey="3" title="">About Us</a></li> --}}
 					{{-- Line 35-37 same (Set an Active Menu Link)  --}}
-					<li class=" {{Request::path() === 'article' ? 'current_page_item' : ''}} "><a href="/articles" accesskey="4" title="">Article</a></li>
+					<li class=" {{Request::path() === 'articles' ? 'current_page_item' : ''}} "><a href="/articles" accesskey="4" title="">Article</a></li>
 					<li class=" {{Request::path() === 'contact' ? 'current_page_item' : ''}} "><a href="#" accesskey="5" title="">Contact Us</a></li>
 				</ul>
 			</div>

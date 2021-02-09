@@ -9,6 +9,6 @@
 <body>
     {{-- <h1>{{$name}}</h1> --}}
     {{-- http://127.0.0.1:8002/?name=<script>alert("hello");</script> --}}
-    <h1>{{!! $name !!}}</h1>
+    <h1>{!! $names !!}</h1>
 </body>
 </html>
