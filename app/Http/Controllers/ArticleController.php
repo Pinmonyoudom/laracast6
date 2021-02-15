@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use App\Tag;
 
 class ArticleController extends Controller
 {
 
     public function index(){
-        $article = Article::latest()->get();
-        // dd($article);
-        return view('article.index',['articles'=>$article]);
+
+        if(request('tag')){
+            $articles = Tag::where('name',request('tag'))->firstOrFail()->articles;
+        }else{
+            $articles = Article::latest()->get();
+        }
+        return view('article.index',compact('articles'));
         // return view('article.index',compact('article')); same
     }
 
@@ -22,8 +27,8 @@ class ArticleController extends Controller
     }
 
     public function create(){
-        
-        return view('article.create');
+        $tags = Tag::all();
+        return view('article.create',compact('tags'));
     }
 
     public function store(){
@@ -46,12 +51,28 @@ class ArticleController extends Controller
     //     'body'=>'required'
     // ]));
     //Extract Method
-    Article::create($this->validateArticle());
+    // dd(request()->all());
+
+    // Article::create($this->validateArticle());
+
     // $article = new Article;
     // $article->title = request('title');
     // $article->except = request('except');
     // $article->body = request('body');
     // $article->save();
+
+    $this->validateArticle();
+
+    // $article = new Article($this->validateArticle());
+    $article = new Article(request(['title','except','body']));
+    $article->user_id = 1; //auth()->id()
+    $article->save();
+
+    // if(request()->has('tags')){
+    //     $article->tags()->attach(request('tags'));
+    // }
+
+    $article->tags()->attach(request('tags'));
 
     return redirect(route('articles.index'));
        
@@ -86,7 +107,8 @@ class ArticleController extends Controller
         return request()->validate([
             'title'=>'required',
             'except'=>'required',
-            'body'=>'required'
+            'body'=>'required',
+            'tags'=>'exists:tags,id' // The selected tags is invalid.
         ]);
     }
 

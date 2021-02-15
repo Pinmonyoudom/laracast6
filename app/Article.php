@@ -21,7 +21,8 @@ class Article extends Model
         //if use public function author must include user_id in return BUT if use  public function user no
     }
     public function tags(){
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->withTimestamps(); // Eloquent syntax
     }
+    //if we want to fetch all tag for  the article we use belongsToMany
 
 }

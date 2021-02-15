@@ -14,7 +14,12 @@
                     class="image image-full" 
                 /> 
             </p>
-          {{$articles->body}}
+          {!! $articles->body !!}
+          <p style="margin-top: 1em">
+            @foreach ($articles->tags as $item)
+                <a href="{{route('articles.index',['tag'=>$item->name])}}">{{$item->name}}</a>
+            @endforeach
+          </p>
 		</div>
 	</div>
 </div>
